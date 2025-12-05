@@ -44,14 +44,6 @@ jobs:
             
           echo "Updated package.json name to $REPO_NAME"
 
-      # README.md の H1 タイトルをリポジトリ名に置換
-      - name: Update README.md
-        if: steps.check_init.outputs.run_init == 'true'
-        run: |
-          REPO_NAME="${{ github.event.repository.name }}"
-          # 1行目の "# Functional TypeScript CLI Template" のような見出しを置換
-          sed -i "1s/^# .*/# $REPO_NAME/" README.md
-
       # package-lock.json がある場合は削除 (名前変更後の整合性のため)
       - name: Cleanup package-lock.json
         if: steps.check_init.outputs.run_init == 'true'
