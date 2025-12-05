@@ -56,7 +56,7 @@ jobs:
       - name: Remove initialization workflow
         if: steps.check_init.outputs.run_init == 'true'
         run: |
-          git rm .github/workflows/init.yml
+          git rm .github/workflows/init.yaml
 
       # 変更をまとめてコミット＆プッシュ
       - name: Commit and push changes
