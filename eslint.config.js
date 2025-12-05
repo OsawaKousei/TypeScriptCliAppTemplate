@@ -1,7 +1,9 @@
 // eslint.config.js
+// @ts-check
+
 import tseslint from 'typescript-eslint';
 
-export default tseslint.defineConfig(
+export default [
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
   {
@@ -13,7 +15,16 @@ export default tseslint.defineConfig(
       'prefer-const': 'error', // 可能な限りconstを強制
       eqeqeq: ['error', 'always'], // 厳密等価演算子 (===) の強制
       'func-style': ['error', 'expression'], // 関数宣言ではなく関数式を強制
-      'no-unused-vars': ['error', { args: 'none', ignoreRestSiblings: true }], // 未使用変数の禁止（引数は除外）
+      'no-unused-vars': 'off', // TypeScript用のルールを使用するため無効化
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ], // 未使用変数の禁止（_で始まる変数は除外）
 
       /* ==========================================================
         TypeScript特有のスタイル統一
@@ -89,4 +100,4 @@ export default tseslint.defineConfig(
       'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
     },
   },
-);
+];
